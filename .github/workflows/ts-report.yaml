@@ -37,8 +37,8 @@ jobs:
         uses: tj-actions/changed-files@v20
         with:
           files: |
-            *.ts
-            *.tsx
+            **/*.ts
+            **/*.tsx
 
       - name: Create report
         if: steps.changed-files-specific.outputs.any_changed == 'true'
