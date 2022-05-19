@@ -1,7 +1,14 @@
 const { spawnSync } = require('child_process');
 const { Octokit } = require('octokit');
 
-const result = spawnSync('yarn', ['--silent', 'tsc', '--noEmit']);
+const files = process.argv.slice(2);
+
+const result = spawnSync('yarn', [
+  '--silent',
+  'tsc-files',
+  '--noEmit',
+  ...files,
+]);
 
 if (result.error) {
   console.log(result.error);
@@ -32,7 +39,9 @@ const prNumber = parseInt(process.env.PR_NUMBER);
 const locations = stdout
   .trim()
   .split('\n')
-  .filter((line) => !line.match(/^\s+/))
+  .filter(
+    (line) => !line.match(/^\s+/) && files.some((file) => line.startsWith(file))
+  )
   .map((line) => {
     const [location, ...rest] = line.split(':');
     const githubPath = location.replace(
@@ -43,7 +52,7 @@ const locations = stdout
     return {
       location,
       url: `${baseUrl}/tree/main/${githubPath}`,
-      error: rest.join(':'),
+      error: rest.join(':').trim(),
     };
   });
 

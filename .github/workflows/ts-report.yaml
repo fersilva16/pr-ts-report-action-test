@@ -32,8 +32,17 @@ jobs:
       - name: Install deps
         run: yarn
 
+      - name: Get changed typescript files
+        id: changed-typescript-files
+        uses: tj-actions/changed-files@v20
+        with:
+          files: |
+            *.ts
+            *.tsx
+
       - name: Create report
-        run: node scripts/report.js
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: node scripts/report.js ${{ steps.changed-files.outputs.all_changed_files }}
         env:
           PR_NUMBER: ${{ github.event.number }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
