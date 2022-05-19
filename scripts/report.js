@@ -26,6 +26,8 @@ const octokit = new Octokit({
 
 const owner = 'fersilva16';
 const repo = 'pr-ts-report-action';
+const baseUrl = `https://github.com/${owner}/${repo}`;
+const prNumber = parseInt(process.env.PR_NUMBER);
 
 const locations = stdout
   .trim()
@@ -40,20 +42,29 @@ const locations = stdout
 
     return {
       location,
-      url: `https://github.com/${owner}/${repo}/tree/main/${githubPath}`,
+      url: `${baseUrl}/tree/main/${githubPath}`,
       error: rest.join(':'),
     };
   });
 
+const issueTitle = `TypeScript errors - #${prNumber}`;
+const issueBodyLines = locations
+  .map(
+    ({ location, url, error }) => `- [ ] [${location}](${url}): \`${error}\``
+  )
+  .join('\n');
+
 octokit.rest.issues.createComment({
   owner,
   repo,
-  issue_number: parseInt(process.env.PR_NUMBER),
+  issue_number: prNumber,
   body: [
+    '# TypeScript Report',
     '| Location | Error |',
     '| -------- | ----- |',
     ...locations.map(
       ({ location, url, error }) => `| [${location}](${url}) | \`${error}\` |`
     ),
+    `[Create an issue](${baseUrl}/issues/new?title=${issueTitle}&body=${issueBodyLines})`,
   ].join('\n'),
 });
