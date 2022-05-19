@@ -25,7 +25,7 @@ const octokit = new Octokit({
 });
 
 const owner = 'fersilva16';
-const repo = 'pr-ts-report-action';
+const repo = 'pr-ts-report-action-test';
 const baseUrl = `https://github.com/${owner}/${repo}`;
 const prNumber = parseInt(process.env.PR_NUMBER);
 
@@ -49,7 +49,7 @@ const locations = stdout
 
 const issueTitle = `TypeScript errors - #${prNumber}`;
 const issueBody = [
-  `${baseUrl}/pulls/${prNumber}`,
+  `${baseUrl}/pull/${prNumber}`,
   ...locations.map(
     ({ location, url, error }) => `- [ ] [${location}](${url}): \`${error}\``
   ),
