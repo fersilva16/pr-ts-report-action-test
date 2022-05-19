@@ -48,11 +48,15 @@ const locations = stdout
   });
 
 const issueTitle = `TypeScript errors - #${prNumber}`;
-const issueBodyLines = locations
-  .map(
+const issueBody = [
+  `${baseUrl}/pulls/${prNumber}`,
+  ...locations.map(
     ({ location, url, error }) => `- [ ] [${location}](${url}): \`${error}\``
-  )
-  .join('\n');
+  ),
+].join('\n');
+
+const encodedIssueTitle = encodeURIComponent(issueTitle);
+const encodedIssueBody = encodeURIComponent(issueBody);
 
 octokit.rest.issues.createComment({
   owner,
@@ -65,6 +69,7 @@ octokit.rest.issues.createComment({
     ...locations.map(
       ({ location, url, error }) => `| [${location}](${url}) | \`${error}\` |`
     ),
-    `[Create an issue](${baseUrl}/issues/new?title=${issueTitle}&body=${issueBodyLines})`,
+    '',
+    `[Create an issue](${baseUrl}/issues/new?title=${encodedIssueTitle}&body=${encodedIssueBody})`,
   ].join('\n'),
 });
