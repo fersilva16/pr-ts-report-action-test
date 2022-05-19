@@ -36,7 +36,7 @@ jobs:
         id: changed-typescript-files
         uses: tj-actions/changed-files@v20
         with:
-          base_sha: ${{ github.event.pull_request.head.sha }}
+          base_sha: ${{ github.event.pull_request.base.sha }}
           files: |
             **/*.ts
             **/*.tsx
