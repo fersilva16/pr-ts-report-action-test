@@ -33,4 +33,4 @@ jobs:
         run: yarn
 
       - name: Create report
-        run: yarn tsc --noEmit
+        run: node scripts/report.js
