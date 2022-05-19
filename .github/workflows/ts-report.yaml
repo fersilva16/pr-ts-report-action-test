@@ -34,3 +34,5 @@ jobs:
 
       - name: Create report
         run: node scripts/report.js
+        env:
+          PR_NUMBER: ${{ github.event.number }}
