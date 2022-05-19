@@ -1,0 +1,12 @@
+{
+  "name": "pr-ts-report-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:fersilva16/pr-ts-report-action.git",
+  "author": "Fernando Silva <fernandonsilva16@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
