@@ -21,7 +21,7 @@ if (result.status !== 2) {
 }
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.AUTH_TOKEN,
 });
 
 const owner = 'fersilva16';
