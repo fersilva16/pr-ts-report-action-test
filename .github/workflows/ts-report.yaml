@@ -36,3 +36,4 @@ jobs:
         run: node scripts/report.js
         env:
           PR_NUMBER: ${{ github.event.number }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
