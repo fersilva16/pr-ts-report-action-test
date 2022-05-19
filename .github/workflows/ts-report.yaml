@@ -41,7 +41,7 @@ jobs:
             **/*.tsx
 
       - name: Create report
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-typescript-files.outputs.any_changed == 'true'
         run: node scripts/report.js ${{ steps.changed-files.outputs.all_changed_files }}
         env:
           PR_NUMBER: ${{ github.event.number }}
