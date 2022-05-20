@@ -5,6 +5,7 @@ const result = fun1({});
 
 result.a.toExponential();
 result.d;
+result.e;
 
 const result2 = fun2();
 result2.a as boolean;
