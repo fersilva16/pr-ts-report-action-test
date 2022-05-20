@@ -1,7 +1,7 @@
 const { spawnSync } = require('child_process');
 const { Octokit } = require('octokit');
 
-const files = process.env.CHANGED_FILES.split(' ');
+const files = process.argv.slice(2);
 
 console.log('files', files);
 
