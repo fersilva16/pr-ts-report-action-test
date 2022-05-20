@@ -22,7 +22,13 @@ const stderr = result.stderr.toString();
 if (process.status === 0) process.exit(0);
 
 if (result.status !== 2) {
-  console.log({ result, files, stdout, stderr });
+  console.log({
+    result,
+    output: result.output.map((output) => output.toString()).join('\n'),
+    files,
+    stdout,
+    stderr,
+  });
 
   process.exit(1);
 }
