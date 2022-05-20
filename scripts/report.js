@@ -74,19 +74,23 @@ const issueBody = [
 
 const encodedIssueTitle = encodeURIComponent(issueTitle);
 const encodedIssueBody = encodeURIComponent(issueBody);
+const table = locations
+  .map(({ location, url, error }) => `| [${location}](${url}) | \`${error}\` |`)
+  .join('\n');
 
 octokit.rest.issues.createComment({
   owner,
   repo,
   issue_number: prNumber,
-  body: [
-    '# TypeScript Report',
-    '| Location | Error |',
-    '| -------- | ----- |',
-    ...locations.map(
-      ({ location, url, error }) => `| [${location}](${url}) | \`${error}\` |`
-    ),
-    '',
-    `[Create an issue](${baseUrl}/issues/new?title=${encodedIssueTitle}&body=${encodedIssueBody})`,
-  ].join('\n'),
+  body: `
+    <details>
+      <summary>
+        TypeScript Report - <a href="${baseUrl}/issues/new?title=${encodedIssueTitle}&body=${encodedIssueBody}">Create an issue</a>
+      </summary>
+      
+      | Location | Error |
+      | -------- | ----- |
+      ${table}
+    </details>
+  `,
 });
