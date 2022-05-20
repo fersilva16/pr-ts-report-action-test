@@ -78,19 +78,21 @@ const table = locations
   .map(({ location, url, error }) => `| [${location}](${url}) | \`${error}\` |`)
   .join('\n');
 
+const body = `
+<details>
+  <summary>
+    TypeScript Report - <a href="${baseUrl}/issues/new?title=${encodedIssueTitle}&body=${encodedIssueBody}">Create an issue</a>
+  </summary>
+  
+  | Location | Error |
+  | -------- | ----- |
+  ${table}
+</details>
+`;
+
 octokit.rest.issues.createComment({
   owner,
   repo,
   issue_number: prNumber,
-  body: `
-    <details>
-      <summary>
-        TypeScript Report - <a href="${baseUrl}/issues/new?title=${encodedIssueTitle}&body=${encodedIssueBody}">Create an issue</a>
-      </summary>
-      
-      | Location | Error |
-      | -------- | ----- |
-      ${table}
-    </details>
-  `,
+  body,
 });
