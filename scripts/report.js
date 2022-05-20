@@ -3,6 +3,8 @@ const { Octokit } = require('octokit');
 
 const files = process.argv.slice(2);
 
+console.log('files', files);
+
 const result = spawnSync('yarn', [
   '--silent',
   'tsc-files',
@@ -19,7 +21,7 @@ if (result.error) {
 const stdout = result.stdout.toString();
 const stderr = result.stderr.toString();
 
-if (process.status === 0) process.exit(0);
+if (result.status === 0) process.exit(0);
 
 if (result.status !== 2) {
   console.log({
