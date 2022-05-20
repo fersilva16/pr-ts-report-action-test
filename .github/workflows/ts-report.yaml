@@ -43,7 +43,8 @@ jobs:
 
       - name: Create report
         if: steps.changed-typescript-files.outputs.any_changed == 'true'
-        run: node scripts/report.js ${{ steps.changed-files.outputs.all_changed_files }}
+        run: node scripts/report.js
         env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           PR_NUMBER: ${{ github.event.number }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
