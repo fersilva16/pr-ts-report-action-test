@@ -45,5 +45,5 @@ jobs:
         if: steps.changed-typescript-files.outputs.any_changed == 'true'
         uses: fersilva16/ts-report-action@0.0.2
         with:
-          githubToken: secrets.AUTH_TOKEN
+          githubToken: ${{ secrets.AUTH_TOKEN }}
           files: ${{ steps.changed-typescript-files.outputs.all_changed_files }}
