@@ -42,6 +42,7 @@ jobs:
             **/*.tsx
 
       - name: TypeScript report
+        if: steps.changed-typescript-files.outputs.any_changed == 'true'
         uses: fersilva16/ts-report-action@0.0.1
         with:
           githubToken: secrets.AUTH_TOKEN
