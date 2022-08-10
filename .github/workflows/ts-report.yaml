@@ -41,9 +41,8 @@ jobs:
             **/*.ts
             **/*.tsx
 
-      - name: Create report
-        if: steps.changed-typescript-files.outputs.any_changed == 'true'
-        run: node scripts/report.js ${{ steps.changed-typescript-files.outputs.all_changed_files }}
-        env:
-          PR_NUMBER: ${{ github.event.number }}
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+      - name: TypeScript report
+        uses: fersilva16/ts-report-action@0.0.1
+        with:
+          githubToken: secrets.AUTH_TOKEN
+          files: ${{ steps.changed-typescript-files.outputs.all_changed_files }}
