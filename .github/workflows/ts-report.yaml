@@ -43,7 +43,7 @@ jobs:
 
       - name: TypeScript report
         if: steps.changed-typescript-files.outputs.any_changed == 'true'
-        uses: fersilva16/ts-report-action@0.0.5
+        uses: fersilva16/ts-report-action@main
         with:
           githubToken: ${{ secrets.AUTH_TOKEN }}
           files: ${{ steps.changed-typescript-files.outputs.all_changed_files }}
