@@ -8,4 +8,4 @@ result.d;
 result.e;
 
 const result2 = fun2();
-result2.a as boolean;
+// result2.a as boolean;
